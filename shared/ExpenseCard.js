@@ -6,8 +6,8 @@ export default function ExpenseCard({ item }) {
     return (
         <View style={styles.card}>
             <View style={styles.cardTitleContainer}>
-            <Text style={ styles.cardTitle }>{ item.title }</Text>
-            <Text style={ styles.cardTitle }>Rs. { item.amount }</Text>
+                <Text style={ styles.cardTitle }>{ item.title }</Text>
+                <Text style={ styles.cardTitle }>Rs. { item.amount }</Text>
             </View>
             <Text>   { item.date }</Text>
         </View> 

@@ -4,22 +4,12 @@ import { createBottomTabNavigator, createAppContainer} from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';  
 import Icon from 'react-native-vector-icons/Ionicons'; 
 import AddExpense from '../screens/AddExpense';
-import Home from '../screens/Home';
-import History from '../screens/History';
+import HistoryStack from './HistoryStack';
+import HomeStack from './HomeStack';
 
 const BottomBarNavigator = createMaterialBottomTabNavigator({
-    History: {
-        screen: History,
-        navigationOptions:{  
-            tabBarLabel:'History',  
-            tabBarIcon: ({ tintColor }) => (  
-                <View>  
-                    <Icon style={[{color: tintColor}]} size={25} name={'ios-time'}/>  
-                </View>),  
-        }  
-    },
     Home: { 
-        screen: Home,  
+        screen: HomeStack,  
         navigationOptions:{  
             tabBarLabel:'Home',  
             tabBarIcon: ({ tintColor }) => (  
@@ -27,7 +17,7 @@ const BottomBarNavigator = createMaterialBottomTabNavigator({
                     <Icon style={[{color: tintColor}]} size={25} name={'ios-home'}/>  
                 </View>),  
         }  
-    },  
+    },
     Add: {
         screen: AddExpense,
         navigationOptions:{  
@@ -35,6 +25,16 @@ const BottomBarNavigator = createMaterialBottomTabNavigator({
             tabBarIcon: ({ tintColor }) => (  
                 <View>  
                     <Icon style={[{color: tintColor}]} size={25} name={'ios-add-circle'}/>  
+                </View>),  
+        }  
+    },
+    History: {
+        screen: HistoryStack,
+        navigationOptions:{  
+            tabBarLabel:'History',  
+            tabBarIcon: ({ tintColor }) => (  
+                <View>  
+                    <Icon style={[{color: tintColor}]} size={25} name={'ios-time'}/>  
                 </View>),  
         }  
     }

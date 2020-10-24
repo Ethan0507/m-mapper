@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, Button } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import ExpenseCard from '../shared/ExpenseCard';
 
@@ -8,7 +8,7 @@ import { globalStyles } from '../styles/GlobalStyles';
 
 export default function Home() {
 
-    const expenseList = [
+    const [expenses, setExpenses] = useState([
         {
             title: "AWS",
             amount: 19000.00,
@@ -46,73 +46,23 @@ export default function Home() {
             key: 6
         },
         {
-            title: "cloud",
-            amount: 2399.00,
-            date: "10-20-2020",
-            key: 7
-        },
-        {
-            title: "cloud",
-            amount: 2399.00,
-            date: "10-20-2020",
-            key: 8
-        },
-        {
-            title: "cloud",
-            amount: 2399.00,
-            date: "10-20-2020",
-            key: 9
-        },
-        {
-            title: "cloud",
-            amount: 2399.00,
-            date: "10-20-2020",
-            key: 10
-        },
-        {
-            title: "cloud",
-            amount: 2399.00,
-            date: "10-20-2020",
-            key: 11
-        },
-        {
-            title: "cloud",
-            amount: 2399.00,
-            date: "10-20-2020",
-            key: 12
-        },
-        {
-            title: "cloud",
-            amount: 2399.00,
-            date: "10-20-2020",
-            key: 13
-        },
-        {
-            title: "cloud",
-            amount: 2399.00,
-            date: "10-20-2020",
-            key: 14
-        },
-        {
             title: "Drive",
             amount: 2399.00,
             date: "10-20-2020",
-            key: 15
+            key: 7
         }
-    ];
+    ]);
     
     let expense = 0;
     var month = new Date().getMonth() + 1;
 
-    expenseList.forEach((item)=>{
+    expenses.forEach((item)=>{
         expense +=item.amount;
-    }
+    });
 
-    )
 
     return (
         <View style={globalStyles.container}>
-            <Text style={globalStyles.titleText}>Mapper</Text> 
             <View style={{backgroundColor: "lightblue", padding: 10,flexDirection:"row"}}>
                 <Text style={globalStyles.subText}>Expense :</Text> 
                 <Text style={globalStyles.subText}>{expense}</Text>
@@ -121,9 +71,9 @@ export default function Home() {
                 <Text style={globalStyles.subText}>Budget :</Text> 
                 <Text style={globalStyles.subText}> 3000</Text>
             </View>
-            <Text style={globalStyles.subText}>Recents</Text>
+            <Text style={globalStyles.subText}>Expenses</Text>
             <FlatList 
-                data={ expenseList }
+                data={ expenses }
                 renderItem={({ item }) => (
                     <ExpenseCard item={ item } />
                 )}
