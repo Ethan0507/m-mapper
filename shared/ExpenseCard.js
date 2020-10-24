@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import { DarkTheme } from 'react-native-paper';
 
 export default function ExpenseCard({ item }) {
     return (
@@ -8,7 +9,7 @@ export default function ExpenseCard({ item }) {
             <Text style={ styles.cardTitle }>{ item.title }</Text>
             <Text style={ styles.cardTitle }>Rs. { item.amount }</Text>
             </View>
-            <Text>{ item.date }</Text>
+            <Text>   { item.date }</Text>
         </View> 
     )
 }
@@ -16,23 +17,28 @@ export default function ExpenseCard({ item }) {
 const styles = StyleSheet.create({
     card: {
         flex: 1,
-        borderWidth: 1,
-        borderRadius: 6,
+        
+        borderWidth: 0.5,
+        borderRadius: 5,
         shadowOffset: {
             width: 1,
-            height: 1
+            height: 3,
         },
+        padding: 10,
+        backgroundColor: '#b3daff',
         shadowColor: '#333',
         shadowOpacity: 0.3,
         shadowRadius: 2,
-        marginHorizontal: 4,
-        marginVertical: 6,
-        elevation: 3,
+        marginHorizontal: 0,
+        marginVertical: 3,
+        elevation: 0,
     },
     cardTitle: {
         fontFamily: 'poppins-bold',
-        fontSize: 12,
+        fontSize: 15,
         flex: 1,
+        marginHorizontal: 10,
+        color:'#222255',
     },
     cardTitleContainer: {
         flexDirection: 'row',

@@ -7,6 +7,13 @@ export const globalStyles = StyleSheet.create({
     },
     titleText: {
         fontFamily: 'poppins-bold',
-        fontSize: 18,
+        fontSize: 30,
+        margin:10,
+        paddingTop:5,
+    },
+    subText: {
+        fontFamily: 'Roboto',
+        fontSize: 20,
+        margin:10,
     }
 });
