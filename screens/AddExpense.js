@@ -1,15 +1,22 @@
-import React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, SafeAreaView, PermissionsAndroid, Button, TouchableOpacity } from 'react-native';
 import DatePicker from 'react-native-datepicker';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-
-import { globalStyles } from '../styles/GlobalStyles';
 import { TextInput } from 'react-native-paper';
 
+
+import { globalStyles } from '../styles/GlobalStyles';
+
+
+
 export default function AddExpense() {
+
+    // const [camOpen, setCamOpen] = useState(false);
+    
     return (
         <View style={globalStyles.container}>
+
             <Formik
                 initialValues={{ paidTo: "", description: "", amount: "", date: "" }}
                 onSubmit={(values, actions) => {
@@ -50,11 +57,14 @@ export default function AddExpense() {
                         />
 
                         <Button title="submit" onPress={props.handleSubmit} />
+
                     </View>
                 )}
             </Formik>
         </View>
     )
+
+    
 }
 
 const styles = StyleSheet.create({
