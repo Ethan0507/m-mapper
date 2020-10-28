@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { NavigationEvents } from 'react-navigation';
-
+import * as DocumentPicker from 'expo-document-picker';
 
 import { Camera } from 'expo-camera';
 
 export default function CameraScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
-  const [cameraRef, setCameraRef] = useState(null)
+  const [cameraRef, setCameraRef] = useState(null);
+  const [image, setImage] = useState(null);
   const [isLoaded, setLoaded] = useState(true);
 
   useEffect(() => {
@@ -18,6 +19,43 @@ export default function CameraScreen({ navigation }) {
       setHasPermission(status === 'granted');
     })();
   }, []);
+
+
+  // useEffect(() => {
+  //   (async () => {
+  //     if (Platform.OS !== 'web') {
+  //       const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+  //       if (status !== 'granted') {
+  //         alert('Sorry, we need camera roll permissions to make this work!');
+  //       }
+  //     }
+  //   })();
+  // }, []);
+
+  // const pickImage = async () => {
+  //   let result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
+  //     allowsEditing: true,
+  //     aspect: [4, 3],
+  //     quality: 1,
+  //   });
+
+  //   console.log(result);
+
+  //   if (!result.cancelled) {
+  //     setImage(result.uri);
+  //   }
+  // };
+
+
+  const pickDocument = async() => {
+    let result = await DocumentPicker.getDocumentAsync({
+      type: "*/*"
+    });
+
+    console.log(result.uri);
+  }
+
 
   if (hasPermission === null) {
     return <View />;
@@ -43,7 +81,9 @@ export default function CameraScreen({ navigation }) {
                 alignSelf: 'flex-end',
                 alignItems: 'center',
                 backgroundColor: 'transparent',                  
-                }}>
+                }}
+                onPress={pickDocument}
+                >
                 <Ionicons
                     name="ios-photos"
                     style={{ color: "#fff", fontSize: 40}}
