@@ -6,7 +6,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import AddExpense from '../screens/AddExpense';
 import HistoryStack from './HistoryStack';
 import HomeStack from './HomeStack';
-import CameraStack from './CameraStack';
+import CameraStack from './AddExpenseStack';
+import AddExpenseStack from './AddExpenseStack';
 
 const BottomBarNavigator = createMaterialBottomTabNavigator({
     Home: { 
@@ -20,7 +21,7 @@ const BottomBarNavigator = createMaterialBottomTabNavigator({
         }  
     },
     Add: {
-        screen: AddExpense,
+        screen: AddExpenseStack,
         navigationOptions:{  
             tabBarLabel:'Add',  
             tabBarIcon: ({ tintColor }) => (  
@@ -38,16 +39,6 @@ const BottomBarNavigator = createMaterialBottomTabNavigator({
                     <Icon style={[{color: tintColor}]} size={25} name={'ios-time'}/>  
                 </View>),  
         }  
-    },
-    Camera: {
-        screen: CameraStack,
-        navigationOptions:{  
-            tabBarLabel:'Camera',  
-            tabBarIcon: ({ tintColor }) => (  
-                <View>  
-                    <Icon style={[{color: tintColor}]} size={25} name={'ios-camera'}/>  
-                </View>),  
-        }
     }
 },
 {  

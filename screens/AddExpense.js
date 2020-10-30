@@ -4,13 +4,13 @@ import DatePicker from 'react-native-datepicker';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { TextInput } from 'react-native-paper';
-
+import { AntDesign } from '@expo/vector-icons';
 
 import { globalStyles } from '../styles/GlobalStyles';
 
 
 
-export default function AddExpense() {
+export default function AddExpense({ navigation }) {
 
     // const [camOpen, setCamOpen] = useState(false);
     
@@ -61,15 +61,32 @@ export default function AddExpense() {
                     </View>
                 )}
             </Formik>
+
+            <View style={styles.AddContainer}>
+                <Text>Got a receipt to?</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('Camera') }>
+                <Text style={styles.Add}>ADD File <AntDesign name="addfile" size={24} color="black"/></Text>
+                </TouchableOpacity>
+            </View>
         </View>
     )
-
-    
 }
 
+
 const styles = StyleSheet.create({
-    button: {
+    AddContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        padding: 10,
+        margin: 10,
+        alignItems: 'center'
+    },
+    Add: {
+        marginHorizontal: 10,
         backgroundColor: "#333",
-        color: "#fff"
+        color: "#fff",
+        borderRadius: 6,
+        padding: 10
     }
 });

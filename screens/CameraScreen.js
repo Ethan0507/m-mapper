@@ -4,6 +4,7 @@ import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icon
 import { NavigationEvents } from 'react-navigation';
 import * as DocumentPicker from 'expo-document-picker';
 
+
 import { Camera } from 'expo-camera';
 
 export default function CameraScreen({ navigation }) {
@@ -53,7 +54,7 @@ export default function CameraScreen({ navigation }) {
       type: "*/*"
     });
 
-    console.log(result.uri);
+  console.log(result.uri);
   }
 
 
