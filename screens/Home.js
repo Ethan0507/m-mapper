@@ -1,14 +1,28 @@
-import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, Button,  Easing, TextInput, Animated,} from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import ExpenseCard from '../shared/ExpenseCard';
-
 import { globalStyles } from '../styles/GlobalStyles';
+import Svg, {G, Circle} from 'react-native-svg';
+
+const AnimatedCircle = Animated.createAnimatedComponent(Circle);
+const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 
-export default function Home() {
 
-    const expenseList = [
+export default function Home({
+   // percentage = (expense*100)/budget,
+    radius = 50,
+    strokeWidth=10,
+    duration=1000,
+    color = 'green',
+    delay = 0,
+    textColor,
+    max = 100,
+    }) 
+{
+    const [expenses, setExpenses] = useState([
         {
             title: "AWS",
             amount: 19000.00,
@@ -70,64 +84,136 @@ export default function Home() {
             key: 10
         },
         {
-            title: "cloud",
-            amount: 2399.00,
-            date: "10-20-2020",
-            key: 11
-        },
-        {
-            title: "cloud",
-            amount: 2399.00,
-            date: "10-20-2020",
-            key: 12
-        },
-        {
-            title: "cloud",
-            amount: 2399.00,
-            date: "10-20-2020",
-            key: 13
-        },
-        {
-            title: "cloud",
-            amount: 2399.00,
-            date: "10-20-2020",
-            key: 14
-        },
-        {
             title: "Drive",
             amount: 2399.00,
             date: "10-20-2020",
-            key: 15
+            key: 11
         }
-    ];
+    ]);
     
     let expense = 0;
+    let budget = 60000;
     var month = new Date().getMonth() + 1;
-
-    expenseList.forEach((item)=>{
+    expenses.forEach((item)=>{
         expense +=item.amount;
-    }
+    });
+    let percentage = (expense*100)/budget;
 
-    )
+    
+    const animated = React.useRef(new Animated.Value(0)).current;
+    const circleRef = React.useRef();
+    const inputRef = React.useRef();
+    const circumference = 2 * Math.PI * radius;
+    const halfCircle = radius + strokeWidth;
+    const animation = (toValue) => {
+        return Animated.timing(animated, {
+          delay: 1000,
+          toValue,
+          duration,
+          useNativeDriver: true,
+          easing: Easing.out(Easing.ease),
+        }).start(() => {
+          animation( percentage);
+        });
+      };
 
+    React.useEffect(() => {
+        animation(percentage);
+        animated.addListener((v) => {
+          const maxPerc = 100 * v.value / max;
+          const strokeDashoffset = circumference - (circumference * maxPerc) / 100;
+          if (inputRef?.current) {
+            inputRef.current.setNativeProps({
+              text: `${Math.round(v.value)}%`,
+            });
+          }
+          if (circleRef?.current) {
+            circleRef.current.setNativeProps({
+              strokeDashoffset,
+            });
+          }
+        }, [max, percentage]);
+    
+        return () => {
+          animated.removeAllListeners();
+        };
+      });
+          
     return (
         <View style={globalStyles.container}>
-            <Text style={globalStyles.titleText}>Mapper</Text> 
-            <View style={{backgroundColor: "lightblue", padding: 10,flexDirection:"row"}}>
+            <View style={{ padding: 20,flexDirection:"row"}}>
+            <View style={{ width: radius * 2, height: radius * 2 }}>
+                <Svg
+                    height={radius * 2}
+                    width={radius * 2}
+                    viewBox={`0 0 ${halfCircle * 2} ${halfCircle * 2}`}>
+                    <G
+                    rotation="-90"
+                    origin={`${halfCircle}, ${halfCircle}`}>
+                    <Circle
+                        ref={circleRef}
+                        cx="50%"
+                        cy="50%"
+                        r={radius}
+                        fill="transparent"
+                        stroke={color}
+                        strokeWidth={strokeWidth}
+                        strokeLinecap= "round"
+                        strokeDashoffset={circumference}
+                        strokeDasharray={circumference}
+                    />
+                    <Circle
+                        cx="50%"
+                        cy="50%"
+                        r={radius}
+                        fill="transparent"
+                        stroke='#777777'
+                        strokeWidth={strokeWidth}
+                        strokeLinejoin="round"
+                        strokeOpacity=".3"
+                    />
+                    </G>
+                </Svg>
+                <AnimatedTextInput
+                    ref={inputRef}
+                    underlineColorAndroid="transparent"
+                    editable={false}
+                    defaultValue="0"
+                    style={[
+                    StyleSheet.absoluteFillObject,
+                    { fontSize: radius / 2, color: textColor ?? color },
+                    styles.text,
+                    ]}
+                />
+                </View>
+            <View>    
+            <View style={{ padding: 10,flexDirection:"row"}}>
                 <Text style={globalStyles.subText}>Expense :</Text> 
                 <Text style={globalStyles.subText}>{expense}</Text>
             </View>
-            <View style={{backgroundColor: "lightblue", padding: 10,flexDirection:"row"}}>
+            <View style={{ padding: 10,flexDirection:"row"}}>
                 <Text style={globalStyles.subText}>Budget :</Text> 
-                <Text style={globalStyles.subText}> 3000</Text>
+                <Text style={globalStyles.subText}>{budget}</Text>
+            </View> 
             </View>
-            <Text style={globalStyles.subText}>Recents</Text>
-            <FlatList 
-                data={ expenseList }
+            </View>
+           
+            <Text style={globalStyles.titleText}>Expenses</Text>
+
+            <FlatList
+                data={ expenses }
                 renderItem={({ item }) => (
-                    <ExpenseCard item={ item } />
+                    <ExpenseCard item={ item }
+                     />
                 )}
+                keyExtractor={(item, i) => i}
             />
+
         </View>
     )
 }
+
+
+const styles = StyleSheet.create({
+    text: { fontSize:20,  fontWeight: '900', textAlign: 'center' },
+  });

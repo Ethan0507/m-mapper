@@ -3,17 +3,33 @@ import { StyleSheet } from 'react-native';
 export const globalStyles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20
+        padding: 0,
+       // backgroundColor: '#333333',
+
     },
     titleText: {
         fontFamily: 'poppins-bold',
-        fontSize: 30,
-        margin:10,
-        paddingTop:5,
+        padding: 10,
+        paddingLeft:20,
+        fontSize: 20,
+        backgroundColor: '#222222',
+        //paddingTop:5,
+        color: '#eeeeee',
+        //borderTopLeftRadius:30,
+        //borderTopRightRadius:30,
+
     },
     subText: {
-        fontFamily: 'Roboto',
+        fontFamily: 'serif',
         fontSize: 20,
-        margin:10,
+        margin:2,
+        color: '#eeeeee',
+        paddingLeft: 20,
+    },
+    smalltext:{
+        
+        fontFamily: 'poppins-regular',
+        fontSize: 18,
+        color: '#eeeeee',
     }
 });
