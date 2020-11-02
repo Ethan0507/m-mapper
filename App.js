@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 
-import Navigator from './routes/BottomNav';
+import Navigator from './src/routes/BottomNav';
 
 const getFonts = () =>
   Font.loadAsync({
