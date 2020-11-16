@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "634804316910",
+    "firebase_url": "https://m-mapper.firebaseio.com",
+    "project_id": "m-mapper",
+    "storage_bucket": "m-mapper.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:634804316910:android:341d1a2f48aa33dfe421ff",
+        "android_client_info": {
+          "package_name": "com.ethachi.mmapper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "634804316910-ktb33fj2l184l953c8n73ttcqs3qvgbg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ethachi.mmapper",
+            "certificate_hash": "7aaa57512a4b201f6b27405997c447c870f071d8"
+          }
+        },
+        {
+          "client_id": "634804316910-n5mnnkohjr5am8uhncok3b651hvbf87f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJce6ZptdQ-SyyY78pMhCmzozQGP4vDMQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "634804316910-n5mnnkohjr5am8uhncok3b651hvbf87f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

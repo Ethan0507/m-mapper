@@ -1,55 +1,37 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, SafeAreaView, PermissionsAndroid, Button, TouchableOpacity } from 'react-native';
+import React, { useState }  from 'react';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import DatePicker from 'react-native-datepicker';
 import { Formik } from 'formik';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import * as yup from 'yup';
-//import { TextInput } from 'react-native-paper';
-
 
 import { globalStyles } from '../styles/GlobalStyles';
+import firebaseApp from '../../FirebaseConfig';
 
+const AddBudget = () => {
 
-
-export default function AddExpense({ navigation }) {
-
-    // const [camOpen, setCamOpen] = useState(false);
+    const db = firebaseApp.firestore();
 
     let [month, day, year]    = new Date().toLocaleDateString("en-US").split("/")
-    
-    return (
-        <View style={contain}>
 
-            <Formik
-                initialValues={{ paidTo: "", description: "", amount: "", date: `${year}-${month}-${day}` }}
+    return (
+        <>
+        
+        <Text style={globalStyles.titleText}>No budget active.</Text>
+        <View style={styles.addContainer}>
+            <Text style={globalStyles.smalltext}>Seems like you don't have an active budget set, yet. Add a budget below to track your expenses.</Text>
+        </View>
+        <Formik
+                initialValues={{ budget: "", endDate: "", expense: 0, active: true }}
                 onSubmit={(values, actions) => {
-                    console.log(values);
                     actions.resetForm();
+                    db.collection("budgets").add(values);
                 }}
             >
                 {( props ) => (
                     <View>
                         <TextInput
-                            placeholder="Paid To"
-                            onChangeText={props.handleChange('paidTo')}
-                            value={props.values.paidTo}
-                            style = {styles.tinput}
-                            placeholderTextColor = "#888888"
-                        />
-
-                        <TextInput
-                            placeholder="Description"
-                            onChangeText={props.handleChange('description')}
-                            value={props.values.description}
-                            style = {styles.tinput}
-                            placeholderTextColor = "#888888"
-
-                        />
-
-                        <TextInput
-                            placeholder="Amount"
-                            onChangeText={props.handleChange('amount')}
-                            value={props.values.amount}
+                            placeholder="Budget amount"
+                            onChangeText={props.handleChange('budget')}
+                            value={props.values.budget}
                             keyboardType="numeric"
                             style = {styles.tinput}
                             placeholderTextColor = "#888888"
@@ -58,13 +40,15 @@ export default function AddExpense({ navigation }) {
 
                         <DatePicker
                             mode="date"
-                            date={props.values.date}
-                            value={props.values.date}
+                            date={props.values.endDate}
+                            value={props.values.endDate}
                             format="YYYY-MM-DD"
+                            placeholder="Select end-date"
                             confirmBtnText="Confirm"
                             cancelBtnText="Cancel"
                             style={datep}
-                            onDateChange={props.handleChange('date')}
+                            minDate={`${year}-${month}-${day}`}
+                            onDateChange={props.handleChange('endDate')}
                         />
 
                         <TouchableOpacity
@@ -78,21 +62,12 @@ export default function AddExpense({ navigation }) {
                     </View>
                 )}
             </Formik>
-                <TouchableOpacity style={styles.addContainer} onPress={() => navigation.navigate('Camera') }>
-                <Text style={styles.Add}>Got a receipt? <MaterialCommunityIcons name="camera-plus" size={30} color="green" /></Text>
-                </TouchableOpacity>
-        </View>
+            </>
     )
-
-    
 }
 
 const styles = StyleSheet.create({
 
-    // container: {
-    //     paddingTop: 100,
-        
-    // },
     buttonn: {
         alignItems: 'center',
         marginHorizontal: 100,
@@ -119,11 +94,10 @@ const styles = StyleSheet.create({
     datep:{
         alignSelf:'center',
         padding:2,
+        width: 80 +'%'
     },
 
     addContainer: {
-        flex: 1,
-        alignItems: 'center',
         padding: 10
     },
     Add: {
@@ -135,3 +109,5 @@ const styles = StyleSheet.create({
 
 const contain = StyleSheet.compose(globalStyles.container, styles.container);
 const datep = StyleSheet.compose(styles.tinput, styles.datep);
+
+export default AddBudget;

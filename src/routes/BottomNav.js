@@ -7,6 +7,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import HistoryStack from './HistoryStack';
 import HomeStack from './HomeStack';
 import AddExpenseStack from './AddExpenseStack';
+import LoadingScreen from '../screens/LoadingScreen';
 //import { DarkTheme } from 'react-native-paper';
 
 const Tab = createBottomTabNavigator();

@@ -20,7 +20,7 @@ export const globalStyles = StyleSheet.create({
 
     },
     subText: {
-        fontFamily: 'serif',
+        fontFamily: 'poppins-regular',
         fontSize: 20,
         margin:2,
         color: '#eeeeee',
