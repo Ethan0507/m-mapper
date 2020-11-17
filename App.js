@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { AppLoading } from 'expo';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import * as Font from 'expo-font';
-import Navigator from './src/routes/BottomNav';
+import BottomNav from './src/routes/BottomNav';
 
 import { firebaseApp } from './FirebaseConfig';
 import LoadingScreen from './src/screens/LoadingScreen';
@@ -20,7 +20,7 @@ const getFonts = () =>
 const AppSwitch = createSwitchNavigator({
   LoadingScreen: LoadingScreen,
   LoginScreen: LoginScreen,
-  BottomNav: Navigator
+  BottomNav: BottomNav
 });
 
 const AppNavigator = createAppContainer(AppSwitch);

@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import * as Google from 'expo-google-app-auth';
 import firebase from 'firebase';
 
 import firebaseApp from '../../FirebaseConfig';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const LoginScreen = ({ navigation }) => {
 
@@ -77,8 +78,20 @@ const LoginScreen = ({ navigation }) => {
 
 
     return (
-        <View style={{ top: 50 +'%', bottom: 50 +'%', width: 50+'%', left: 25 +'%', right : 25 +'%' }}>
-            <Button title="Sign In with Google!" onPress={signIn}/>
+        <View style={{ paddingVertical:400, alignContent:'center',  justifyContent : 'center', backgroundColor:'#333'}}>
+
+<Image source = {require('../components/img/menuicon.png')} style ={{height: 150, width: 150, alignSelf: 'center'}}/>
+
+              <Text style = {{color:'#fff', fontSize:20 , fontFamily: 'serif', marginVertical:12, alignSelf: 'center'}}>Welcome to CashFlow!</Text>
+
+            <TouchableOpacity
+            onPress = {signIn}
+            style = {{ alignItems: 'center', justifyContent: 'center', flexDirection:'row', backgroundColor:'#0492c2',padding: 10, borderRadius:6, marginHorizontal:40 }}
+            >
+              <Image source = {require('../components/img/google.png')} style ={{height: 30, width: 30}}/>
+              <Text style = {{color:'#fff', fontSize:18 }}>  Sign In with Google!</Text>
+
+            </TouchableOpacity>
         </View>
     );
 }
