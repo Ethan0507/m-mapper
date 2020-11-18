@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, Image, View } from 'react-native';
 import firebase from 'firebase';
 
 const styles = StyleSheet.create({
@@ -27,8 +27,11 @@ const LoadingScreen = ({ navigation }) => {
     }, []);
 
     return (
-        <View style={styles.container}>
-            <ActivityIndicator size="large" color="#00ff00" />
+        <View style={{justifyContent: 'center', alignItems: 'center', paddingVertical:400, backgroundColor:'#393939'   }}>
+            <Image source = {require('../components/img/menuicon.png')}  style  ={{height: 100, width: 100}} />
+            <Text style = {{color:'#0f0', fontSize:20, margin : 10}}> CashFlow</Text>
+
+            <ActivityIndicator size="large" color="#00ff00" ></ActivityIndicator>
         </View>
     );
 }

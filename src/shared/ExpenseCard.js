@@ -7,7 +7,7 @@ export default function ExpenseCard({ item }) {
         <View style={styles.card}>
             <TouchableOpacity>
             <View style={styles.cardTitleContainer}>
-                <Text style={ styles.cardTitle }>{ item.title }</Text>
+                <Text style={ styles.cardTitle }>{ item.paidTo }</Text>
                 <Text style={ amnt }>₹ { item.amount }</Text>
             </View>
             <Text style = {{color: '#555555'}}>   { item.date }</Text>

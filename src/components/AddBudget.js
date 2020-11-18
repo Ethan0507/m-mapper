@@ -20,7 +20,7 @@ const AddBudget = () => {
             <Text style={globalStyles.smalltext}>Seems like you don't have an active budget set, yet. Add a budget below to track your expenses.</Text>
         </View>
         <Formik
-                initialValues={{ budget: "", endDate: "", expense: 0, active: true }}
+                initialValues={{ budget: "", endDate: "", totalExpense: 0, active: true, expenses: [] }}
                 onSubmit={(values, actions) => {
                     actions.resetForm();
                     db.collection("budgets").add(values);

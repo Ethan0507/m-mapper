@@ -12,15 +12,15 @@ const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 
 
-const BudgetExpense = ({ budget, expense }) => {
+const BudgetExpense = ({ budget, expense, expenses, radius = 50,
+   strokeWidth = 10,
+   duration=1000,
+   color = '#0d0',
+   delay = 0,
+   textColor,
+   max = 100}) => {
 
-    var radius = 50;
-    var strokeWidth = 10;
-    var duration=1000;
-    var color = 'green';
-    var delay = 0;
-    var textColor;
-    var max = 100;
+    
     var month = new Date().getMonth() + 1;
     let percentage = (expense*100)/budget;
 
@@ -37,9 +37,7 @@ const BudgetExpense = ({ budget, expense }) => {
           duration,
           useNativeDriver: true,
           easing: Easing.out(Easing.ease),
-        }).start(() => {
-          animation( percentage);
-        });
+        }).start();
       };
 
     React.useEffect(() => {
@@ -124,7 +122,7 @@ const BudgetExpense = ({ budget, expense }) => {
             </View>
             </View>
 
-            <ExpenseList />
+            <ExpenseList expenses={expenses}/>
             </>
     )
 }

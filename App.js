@@ -3,13 +3,22 @@ import { StyleSheet, Text, View } from 'react-native';
 import { AppLoading } from 'expo';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import * as Font from 'expo-font';
-import Navigator from './src/routes/BottomNav';
+import BottomNav from './src/routes/BottomNav';
 
 import { firebaseApp } from './FirebaseConfig';
 import LoadingScreen from './src/screens/LoadingScreen';
 import LoginScreen from './src/screens/LoginScreen';
 
+import { YellowBox } from 'react-native';
+import _ from 'lodash';
 
+YellowBox.ignoreWarnings(['Setting a timer']);
+const _console = _.clone(console);
+console.warn = message => {
+  if (message.indexOf('Setting a timer') <= -1) {
+    _console.warn(message);
+  }
+};
 
 const getFonts = () =>
   Font.loadAsync({
@@ -20,7 +29,7 @@ const getFonts = () =>
 const AppSwitch = createSwitchNavigator({
   LoadingScreen: LoadingScreen,
   LoginScreen: LoginScreen,
-  BottomNav: Navigator
+  BottomNav: BottomNav
 });
 
 const AppNavigator = createAppContainer(AppSwitch);

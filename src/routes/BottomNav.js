@@ -14,7 +14,7 @@ const Tab = createBottomTabNavigator();
 
 function MyTabs() {
   return (
-    <Tab.Navigator initialRouteName="home"    tabBarOptions={ { style:{height:60 }, keyboardHidesTabBar: 'true',activeTintColor: '#99ff99',inactiveTintColor:'#447744', tabStyle:{padding:10} , labelStyle: {fontFamily: 'Montserrat', fontSize : 10 } }} >
+    <Tab.Navigator initialRouteName="home"    tabBarOptions={ { style:{height:60 }, keyboardHidesTabBar: 'true',activeTintColor: '#99ff99',inactiveTintColor:'#447744', tabStyle:{padding:10} , labelStyle: { fontSize : 10 } }} >
       <Tab.Screen
         name="home"
         component={HomeStack}
