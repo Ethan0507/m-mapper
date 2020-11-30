@@ -1,17 +1,50 @@
-import React from 'react';
-import { StyleSheet, View, Text,TouchableOpacity } from 'react-native';
+import React , { useState } from 'react';
+import { StyleSheet,Alert,Modal,TouchableHighlight, View, Text,TouchableOpacity } from 'react-native';
 
 
 export default function ExpenseCard({ item }) {
+    const [modalVisible, setModalVisible] = useState(false);
+
     return (
-        <View style={styles.card}>
-            <TouchableOpacity>
-            <View style={styles.cardTitleContainer}>
+        <View style={styles.card}>  
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                Alert.alert("Modal has been closed.");
+                }}
+            >
+                <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                    <Text style={styles.modalText}>{ item.paidTo }</Text>
+                    <Text style={styles.modalText}>{ item.amount }</Text>
+                    <Text style={styles.modalText}>{ item.date }</Text>
+
+                    <TouchableOpacity
+                        style={{ ...styles.openButton, backgroundColor: "#00bb00" }}
+                        onPress={() => {
+                            setModalVisible(!modalVisible);
+                        }}
+                    >
+                    <Text style={styles.textStyle}>Close</Text>
+                    </TouchableOpacity>
+                </View>
+                </View>
+            </Modal>
+
+           <TouchableOpacity
+            onPress={() => {
+                setModalVisible(!modalVisible);
+            }}>  
+              <View style={styles.cardTitleContainer}>
                 <Text style={ styles.cardTitle }>{ item.paidTo }</Text>
                 <Text style={ amnt }>₹ { item.amount }</Text>
             </View>
-            <Text style = {{color: '#555555'}}>   { item.date }</Text>
-            </TouchableOpacity>
+            <Text style = {{color: '#555555'}}>  { item.date }</Text> 
+           </TouchableOpacity>
+            
         </View> 
     )
 }
@@ -56,7 +89,50 @@ const styles = StyleSheet.create({
     },
     cardRight:{
         textAlign: 'right',
-    }
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 15,
+      },
+    modalView: {
+        margin: 20,
+        //padding:20,
+
+        backgroundColor: "rgb(200,200,200)",
+        borderRadius: 20,
+        paddingHorizontal: 65,
+        paddingVertical:30,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+      },
+      openButton: {
+          marginTop:20,
+        backgroundColor: "#FF84FF",
+        borderRadius: 20,
+        paddingHorizontal: 40,
+        paddingVertical:7,
+        elevation: 2
+      },
+      textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+      },
+      modalText: {
+        marginBottom: 15,
+        fontSize:15,
+        fontWeight: "bold",
+        textAlign: "center"
+      }
 
 })
 
