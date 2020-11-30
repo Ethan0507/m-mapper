@@ -12,7 +12,7 @@ const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 
 
-const BudgetExpense = ({ budget, expense , radius = 50,
+const BudgetExpense = ({ budget, expense, expenses, radius = 50,
    strokeWidth = 10,
    duration=1000,
    color = '#0d0',
@@ -122,7 +122,7 @@ const BudgetExpense = ({ budget, expense , radius = 50,
             </View>
             </View>
 
-            <ExpenseList />
+            <ExpenseList expenses={expenses}/>
             </>
     )
 }

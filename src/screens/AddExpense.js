@@ -6,6 +6,9 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as yup from 'yup';
 //import { TextInput } from 'react-native-paper';
 
+import firebaseApp from '../../FirebaseConfig';
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 import { globalStyles } from '../styles/GlobalStyles';
 
@@ -15,16 +18,43 @@ export default function AddExpense({ navigation }) {
 
     // const [camOpen, setCamOpen] = useState(false);
 
-    let [month, day, year]    = new Date().toLocaleDateString("en-US").split("/")
+    let [month, day, year]    = new Date().toLocaleDateString("en-US").split("/");
+    const db = firebaseApp.firestore();
+
+
+    const getBudgetId = async () => {
+        let budgetId = '';
+        try {
+          budgetId = await AsyncStorage.getItem('budgetId') || null;
+        } catch (error) {
+          // Error retrieving data
+          console.log(error.message);
+        }
+        return budgetId;
+      }
     
     return (
         <View style={contain}>
 
             <Formik
-                initialValues={{ paidTo: "", description: "", amount: "", date: `${year}-${month}-${day}` }}
-                onSubmit={(values, actions) => {
-                    console.log(values);
+                initialValues={{ paidTo: "", description: "", amount: 0, date: `${year}-${month}-${day}` }}
+                onSubmit={async (values, actions) => {
                     actions.resetForm();
+                    const docId = await getBudgetId();
+                    if (docId == null) {
+                        actions.setErrors({ paidTo: "Cannot add expense as no budget is set." })
+                    }
+                    else {
+                        const response = await db.collection("budgets").doc(docId).get();
+                        const prevData = response.data();
+                        const newExpense =  parseInt(prevData.totalExpense) + parseInt(values.amount);
+                        const prevExpenses = prevData.expenses;
+                        prevExpenses.push(values);
+                        db.collection("budgets").doc(docId).update({
+                            totalExpense: newExpense,
+                            expenses: prevExpenses
+                        });
+                    }
                 }}
             >
                 {( props ) => (
