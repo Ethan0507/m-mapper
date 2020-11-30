@@ -31,17 +31,18 @@ const Home = () => {
     
     const db = firebaseApp.firestore();
 
-    var user = firebase.auth().currentUser;
-    var name, email, photoUrl, emailVerified;
+    // var user = firebase.auth().currentUser;
+    // var name, email, photoUrl, emailVerified;
+
+    // if (user != null) {
+    //     name = user.displayName;
+    //     email = user.email;
+    //     photoUrl = user.photoURL;
+    //     emailVerified = user.emailVerified;
+    // };
     
-    if (user != null) {
-      name = user.displayName;
-      email = user.email;
-      photoUrl = user.photoURL;
-      emailVerified = user.emailVerified;
-     
-    };
-    console.log(name);
+    
+    const [user, setUser] = React.useState(null);
 
     let responseObj = {
         docId: null,
@@ -102,11 +103,19 @@ const Home = () => {
                 })
             }
         })})();
-    }, []);
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                setUser(user);
+            }
+            else {
+              console.log("No user found");
+            }
+          })
+    }, [user]);
 
     const navigationView = (
         <View style={styles.navigationContainer}>
-            <Image
+            {user && <Image
                 style={{   width: 100,
                     height: 100,
                     borderRadius: 100 / 2,
@@ -114,19 +123,19 @@ const Home = () => {
                     borderWidth: 3,
                     borderColor: "white", alignSelf: "center"}}
                 source={{
-                uri: photoUrl,
+                uri: user.photoURL,
                 }}
-            />
-            <Text style={{color:"white", marginTop: 10, fontSize: 20 , alignSelf: "center"}}>{name}</Text>
-            <Text style={{color:"white", margin: 20, fontSize: 15, alignSelf: "center" }}>{email}</Text>
-            <Button
+            />}
+            {user && <Text style={{color:"white", marginTop: 10, fontSize: 20 , alignSelf: "center"}}>{user.displayName}</Text>}
+            {user && <Text style={{color:"white", margin: 20, fontSize: 15, alignSelf: "center" }}>{user.email}</Text>}
+            {user && <Button
                color = "#000000"
                margin = "20"
                 onPress = {() => {
                     firebase.auth().signOut();
                     //alert("hello");
                 }}  
-                title="Sign out"/>
+                title="Sign out"/>}
         </View>
       );
     
