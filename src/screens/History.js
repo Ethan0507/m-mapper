@@ -11,52 +11,6 @@ import { globalStyles } from '../styles/GlobalStyles';
 
 export default function History({ navigation }) {
 
-    // const db = firebaseApp.firestore();
-
-    // const [budget, setBudget] = React.useState();
-    // const [expense, setExpense] = React.useState();
-    // const [expenses, setExpenses] = React.useState();
-    // const allBudget = [];
-
-    // const saveBudgetId = async budgetId => {
-    //     try {
-    //       await AsyncStorage.setItem('budgetId', budgetId);
-    //       return "Saved";
-    //     } catch (error) {
-    //       console.log(error.message);
-    //     }
-    //     return "Done";
-    //   };
-
-    
-    // const removeBudgetId = async () => {
-    //     try {
-    //         await AsyncStorage.removeItem('budgetId');
-    //         return "Removed";
-    //     } catch (error) {
-    //         console.log(error.message);
-    //     }
-    //     return "Done";
-    // }
-
-
-    // React.useEffect(async () => {
-
-    //     db.collection("budgets").onSnapshot(snapshot => {
-    //         var activeBudgets = snapshot.docs.map(s => s.data());
-    //         console.log(activeBudgets);
-    //         setBudget("hello");
-    //         console.log("addBudget");
-    //         addBudget = Object.entries(activeBudgets);
-    //         console.log("below");
-    //         console.log(addBudget);
-
-    //     });
-
-        
-
-    // }, []);
-    
 
     const budgetList = [
         {
@@ -67,19 +21,23 @@ export default function History({ navigation }) {
             expense:[
                 {title: "Grocery",
                 date:"09-09-2020",
-                amount:3562.00
+                amount:3562.00,
+                key:'1'
             },
             {title:"Shoes",
                 date:"10-09-2020",
-                amount:2000.00
+                amount:2000.00,
+                key:'2'
             },
             {title: "Shirt",
                 date:"10-09-2020",
-                amount:1200.00
+                amount:1200.00,
+                key:'3'
             },
             {title: "Netflix Subscription",
                 date:"13-09-2020",
-                amount: 499.00
+                amount: 499.00,
+                key:'4'
             }
             ],
             totalExpense: 7261.00
@@ -93,19 +51,38 @@ export default function History({ navigation }) {
             expense:[
                 {title:"Amul milk",
                 date:"16-09-2020",
-                amount:23.00
+                amount:23.00,
+                key:'1'
             },
             {title:"Pendrive",
                 date:"18-09-2020",
-                amount:724.00
+                amount:724.00,
+                key:'2'
             },
             {title:"Phone Cover",
                 date:"18-09-2020",
-                amount:100.00
+                amount:100.00,
+                key:'3'
+            },
+            {title:"Phone Cover",
+                date:"18-09-2020",
+                amount:100.00,
+                key:'4'
+            },
+            {title:"Phone Cover",
+                date:"18-09-2020",
+                amount:100.00,
+                key:'5'
+            },
+            {title:"Phone Cover",
+                date:"18-09-2020",
+                amount:100.00,
+                key:'6'
             },
             {title:"Phone Charger",
                 date:"18-09-2020",
-                amount:449.00
+                amount:449.00,
+                key:'7'
             }
             ],
             totalExpense: 1296.00
@@ -118,23 +95,28 @@ export default function History({ navigation }) {
             expense:[
                 {title:"HouseHold",
                 date:"24-09-2020",
-                amount:5322.00
+                amount:5322.00,
+                key:'1'
             },
             {title: "Apples",
                 date:"25-09-2020",
-                amount:90.00
+                amount:90.00,
+                key:'2'
             },
             {title:"Stationary",
                 date:"25-09-2020",
-                amount:162.00
+                amount:162.00,
+                key:'3'
             },
             {title:"Phone recharge",
                 date:"27-09-2020",
-                amount:799.00
+                amount:799.00,
+                key:'4'
             },
             {title:"Dominos",
                 date:"27-09-2020",
-                amount:150.00
+                amount:150.00,
+                key:'5'
             }
             ],
             totalExpense: 6523.00
@@ -147,15 +129,18 @@ export default function History({ navigation }) {
             expense:[
                 {title:"Oranges",
                 date:"30-09-2020",
-                amount:80
+                amount:80,
+                key:'1'
             },
             {title:"Boat Earphones",
                 date:"01-10-2020",
-                amount:1499.00
+                amount:1499.00,
+                key:'2'
             },
             {title:"Grocery",
                 date: "03-10-2020",
-                amount:253.00
+                amount:253.00,
+                key:'3'
             }
             ],
             totalExpense:1832.00
@@ -164,9 +149,8 @@ export default function History({ navigation }) {
 
     return (
         <View style={globalStyles.container}>
-            <Text style = {{ color: '#ffffff'}} >
-                
-            </Text>
+            <Text style = {{ color: '#ffffff'}} ></Text>
+
             <FlatList 
                 data={ budgetList }
                 renderItem={({ item }) => (

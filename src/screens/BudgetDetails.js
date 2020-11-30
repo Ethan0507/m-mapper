@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Button, Text } from 'react-native';
+import { StyleSheet,ScrollView, SafeAreaView ,FlatList, View, Button, Text } from 'react-native';
 import { AppLoading } from 'expo';
-import { FlatList } from 'react-native-gesture-handler';
+//import { FlatList } from 'react-native-gesture-handler';
 
 
 import {  useFonts, DarkerGrotesque_700Bold } from '@expo-google-fonts/darker-grotesque';
@@ -24,20 +24,42 @@ export default function BudgetDetails({ route, navigation }) {
       } else {
 
     return (
+       <>
+
         <View style = {styles.card}>
-            <Text style={styles.text}>Title : {title}</Text>
-            <Text style={styles.text}>Date : {date}</Text>
-            <Text style={styles.text}>Amount : {amount}</Text>
-            <Text style={styles.text}>Total : {total}</Text>
-            <Text style = {{margin:4}}></Text>
-            <FlatList 
+
+            <View>
+                <Text style={styles.text}>Title : {title}</Text>
+                <Text style={styles.text}>Date : {date}</Text>
+                <Text style={styles.text}>Amount : {amount}</Text>
+                <Text style={styles.text}>Total : {total}</Text>    
+            </View>
+            </View>
+          
+            <ScrollView>
+                
+                    {
+                        expense.map(item => (
+                            <BudgetExpense item={ item } />
+                        ))
+                    }
+            </ScrollView>
+          
+           
+            
+            {/* <FlatList 
+                //scrollEnabled = {true}
                 data={ expense }
                 renderItem={({ item }) => (
                         <BudgetExpense item={ item } />
                 
                 )}
-            />
-        </View>
+                keyExtractor={item => item.key}
+                
+            /> */}
+            
+        
+        </>
     );
 }
 }
@@ -48,10 +70,15 @@ const styles = StyleSheet.create({
         fontFamily: 'DarkerGrotesque_700Bold',
         margin: 10,
     },
+    container: {
+        flex: 1,
+      
+      },
     card:{
         
-        padding: 2,
+        padding: 12,
         margin: 10,
+        marginBottom:6,
         borderRadius:10,
         backgroundColor: 'rgb(33,33,33)',
     }

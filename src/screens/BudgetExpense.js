@@ -28,10 +28,10 @@ const styles = StyleSheet.create({
         margin: 30,
     },
     card:{
-        flex: 1,
+        
         padding: 8,
-        margin: 3,
-        borderRadius:10,
+        margin: 5,
+        borderRadius:5,
         backgroundColor: 'rgb(55,55,55)',
     },
     cardTitle:{

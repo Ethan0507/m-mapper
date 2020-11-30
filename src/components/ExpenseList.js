@@ -12,7 +12,8 @@ const ExpenseList = ({ expenses }) => {
         <>
         <Text style={globalStyles.titleText}>Expenses</Text>
 
-        {expenses !== undefined && expenses !== null && <FlatList
+        {expenses !== undefined && expenses !== null && 
+        <FlatList
             data={ expenses }
             renderItem={({ item }) => (
                 <ExpenseCard item={ item }
