@@ -1,9 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import { View,Text, Button, StyleSheet,DrawerLayoutAndroid,Image, ActivityIndicator } from 'react-native';
 
 import firebase from 'firebase';
 import firebaseApp from '../../FirebaseConfig';
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-community/async-storage';
+
+
 
 
 import { globalStyles } from '../styles/GlobalStyles';
@@ -15,11 +17,31 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       backgroundColor: "#333"
-    }});
+    },
+    navigationContainer: {
+      flex: 1,
+     
+      paddingTop: 50,
+      backgroundColor: "#327533",
+      padding: 8
+    }
+});
 
 const Home = () => {
     
     const db = firebaseApp.firestore();
+
+    var user = firebase.auth().currentUser;
+    var name, email, photoUrl, emailVerified;
+    
+    if (user != null) {
+      name = user.displayName;
+      email = user.email;
+      photoUrl = user.photoURL;
+      emailVerified = user.emailVerified;
+     
+    };
+    console.log(name);
 
     let responseObj = {
         docId: null,
@@ -29,6 +51,7 @@ const Home = () => {
     const [budget, setBudget] = React.useState();
     const [expense, setExpense] = React.useState();
     const [expenses, setExpenses] = React.useState();
+    const [profile, setProfile] = React.useState();
 
     const saveBudgetId = async budgetId => {
         try {
@@ -52,8 +75,10 @@ const Home = () => {
     }
 
 
-    React.useEffect(async () => {
+    React.useEffect(() => {
+        (async () => {
         db.collection("budgets").onSnapshot(snapshot => {
+
             var activeBudgets = snapshot.docs.filter(s => s.data().active === true);
             if (activeBudgets.length === 0) {
                 setBudget(null);
@@ -76,45 +101,50 @@ const Home = () => {
                     res = await saveBudgetId(res);
                 })
             }
-        });
-        // db.collection("budgets").where("active", "==", true)
-        // .get()
-        // .then(function(querySnapshot) {
-        //     querySnapshot.forEach(function(doc) {
-        //         let responseData = doc.data();
-        //         let endDate = responseData.endDate.split("-");
-        //         let newDate = new Date(endDate[0], endDate[1] - 1, endDate[2])
-        //         if (newDate < new Date()) {
-        //             db.collection("budgets").doc(doc.id).update({
-        //                 active: false
-        //             });
-        //             setBudget(null);
-        //         } else {
-        //             saveBudgetId(doc.id);
-        //             setBudget(responseData.budget);
-        //             setExpense(responseData.totalExpense);
-        //             setExpenses(responseData.expenses);
-        //         }
-        //     });
-        //     if (querySnapshot.size === 0) {
-        //         setBudget(null);
-        //     }
-        // })
-        // .catch(function(error) {
-        //     console.log("Error getting documents: ", error);
-        //     setBudget(null);
-        // });
+        })})();
     }, []);
 
-
-    return (
-        <View style={globalStyles.container}>
-            <View style={styles.container}>
-                <ActivityIndicator color="#00ff00" animating={ budget === undefined }/>
-            </View>
-            {budget !== undefined && budget !== null && <BudgetExpense budget={budget} expense={expense} expenses={expenses}/>}
-            {budget === null && <AddBudget />}
+    const navigationView = (
+        <View style={styles.navigationContainer}>
+            <Image
+                style={{   width: 100,
+                    height: 100,
+                    borderRadius: 100 / 2,
+                    overflow: "hidden",
+                    borderWidth: 3,
+                    borderColor: "white", alignSelf: "center"}}
+                source={{
+                uri: photoUrl,
+                }}
+            />
+            <Text style={{color:"white", marginTop: 10, fontSize: 20 , alignSelf: "center"}}>{name}</Text>
+            <Text style={{color:"white", margin: 20, fontSize: 15, alignSelf: "center" }}>{email}</Text>
+            <Button
+               color = "#000000"
+               margin = "20"
+                onPress = {() => {
+                    firebase.auth().signOut();
+                    //alert("hello");
+                }}  
+                title="Sign out"/>
         </View>
+      );
+    
+    return (
+        <DrawerLayoutAndroid
+            drawerWidth={300}
+            drawerPosition="left"
+            renderNavigationView={() => navigationView}
+            >
+                <View style={globalStyles.container}>
+                    <View style={styles.container}>
+                        <ActivityIndicator color="#00ff00" animating={ budget === undefined }/>
+                    </View>
+                    {budget !== undefined && budget !== null && <BudgetExpense budget={budget} expense={expense} expenses={expenses}/>}
+                    {budget === null && <AddBudget />}
+                </View>
+        </DrawerLayoutAndroid>
+
     )
 }
 
