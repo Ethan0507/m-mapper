@@ -19,8 +19,10 @@ export default function ExpenseCard({ item }) {
                 <View style={styles.centeredView}>
                 <View style={styles.modalView}>
                     <Text style={styles.modalText}>{ item.paidTo }</Text>
-                    <Text style={styles.modalText}>{ item.amount }</Text>
+                    <Text style={styles.modalText}>{ item.description }</Text>
+                    <Text style={styles.modalText}>₹ { item.amount }</Text>
                     <Text style={styles.modalText}>{ item.date }</Text>
+                    
 
                     <TouchableOpacity
                         style={{ ...styles.openButton, backgroundColor: "#00bb00" }}

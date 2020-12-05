@@ -13,6 +13,7 @@ export default function BudgetDetails({ route, navigation }) {
 
     const { title } = route.params;
     const { amount } = route.params;
+    const { startDate } = route.params;
     const { date } = route.params;
     const { total } = route.params;
     const { expense } = route.params;
@@ -30,9 +31,10 @@ export default function BudgetDetails({ route, navigation }) {
 
             <View>
                 <Text style={styles.text}>Title : {title}</Text>
-                <Text style={styles.text}>Date : {date}</Text>
-                <Text style={styles.text}>Amount : {amount}</Text>
-                <Text style={styles.text}>Total : {total}</Text>    
+                <Text style={styles.subtext}>Start Date : {startDate}</Text>
+                <Text style={styles.subtext}>End Date : {date}</Text>
+                <Text style={styles.subtext}>Budget : ₹ {amount}</Text>
+                <Text style={styles.subtext}>Total : ₹ {total}</Text>    
             </View>
             </View>
           
@@ -69,6 +71,12 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontFamily: 'DarkerGrotesque_700Bold',
         margin: 10,
+    },
+    subtext: {
+        color: 'rgb(200,200,200)',
+        fontSize: 20,
+        fontFamily: 'DarkerGrotesque_700Bold',
+        margin: 6,
     },
     container: {
         flex: 1,

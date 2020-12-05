@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
     datep:{
         alignSelf:'center',
         padding:2,
+        color:'rgb(255,255,255)',
     },
 
     addContainer: {

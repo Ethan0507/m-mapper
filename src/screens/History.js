@@ -16,6 +16,7 @@ export default function History({ navigation }) {
         {
             title: "Budget 4",
             amount: 15000.00,
+            startDate: "05-09-2020",
             date: "14-09-2020",
             key: "1",
             expense:[
@@ -46,6 +47,7 @@ export default function History({ navigation }) {
         {
             title: "Budget 3",
             amount: 1000.00,
+            startDate: "16-09-2020",
             date: "23-09-2020",
             key: "2",
             expense:[
@@ -90,6 +92,7 @@ export default function History({ navigation }) {
         {
             title: "Budget 2",
             amount: 10000.00,
+            startDate: "23-09-2020",
             date: "28-09-2020",
             key: "3",
             expense:[
@@ -124,6 +127,7 @@ export default function History({ navigation }) {
         {
             title: "Budget 1",
             amount: 3000.00,
+            startDate: "30-09-2020",
             date: "05-10-2020",
             key: "4",
             expense:[
@@ -154,7 +158,7 @@ export default function History({ navigation }) {
             <FlatList 
                 data={ budgetList }
                 renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => navigation.navigate('BudgetDetails', {title: item.title, amount: item.amount, date:item.date, expense:item.expense, total:item.totalExpense})}>
+                    <TouchableOpacity onPress={() => navigation.navigate('BudgetDetails', {title: item.title, amount: item.amount, startDate: item.startDate, date:item.date, expense:item.expense, total:item.totalExpense})}>
                         <BudgetCard item={ item } />
                     </TouchableOpacity>
                 )}

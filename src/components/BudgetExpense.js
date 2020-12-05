@@ -113,16 +113,16 @@ const BudgetExpense = ({ budget, expense, expenses, radius = 50,
             <View>
             <View style={{ padding: 10,flexDirection:"row"}}>
                 <Text style={globalStyles.subText}>Expense :</Text> 
-                <Text style={globalStyles.subText}>{expense}</Text>
+                <Text style={globalStyles.subText}>₹ {expense}</Text>
             </View>
             <View style={{ padding: 10,flexDirection:"row"}}>
                 <Text style={globalStyles.subText}>Budget :</Text> 
-                <Text style={globalStyles.subText}>{budget}</Text>
+                <Text style={globalStyles.subText}>₹ {budget}</Text>
             </View> 
             </View>
             </View>
 
-            <ExpenseList expenses={expenses}/>
+            <ExpenseList expenses={expenses} expense = {expense}/>
             </>
     )
 }

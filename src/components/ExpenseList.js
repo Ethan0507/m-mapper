@@ -7,7 +7,7 @@ import { globalStyles } from '../styles/GlobalStyles';
 
 
 
-const ExpenseList = ({ expenses }) => {
+const ExpenseList = ({ expenses, expense }) => {
     return (
         <>
         <Text style={globalStyles.titleText}>Expenses</Text>
@@ -22,7 +22,7 @@ const ExpenseList = ({ expenses }) => {
             keyExtractor={(item, i) => i}
         />}
 
-        {expenses === undefined && <Text style={globalStyles.subText}>Hurray! You haven't spent much yet.</Text>}
+        {(expenses === undefined || expense === 0 ) && <Text style={globalStyles.subText}>Hurray! You haven't spent much yet.</Text>}
 
         </>
     )

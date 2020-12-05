@@ -34,6 +34,7 @@ export default function CamScreen({navigation}) {
         });
     
         console.log(result.uri);
+        alert("Image added Successfully");
     }
  
     if (hasPermission === null) {

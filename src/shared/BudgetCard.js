@@ -8,7 +8,8 @@ export default function BudgetCard({ item }) {
                 <Text style={styles.cardTitle}>{ item.title }</Text>
                 <Text style={styles.cardTitle}> { item.amount }₹</Text>
             </View>
-            <Text style={{color:'#999999', fontSize:14, paddingTop:8, paddingLeft: 5}}>   Date: { item.date }</Text>
+            <Text style={{color:'#999999', fontSize:14, paddingTop:8, paddingLeft: 5}}>   Start Date: { item.startDate }</Text>
+            <Text style={{color:'#999999', fontSize:14, paddingTop:8, paddingLeft: 5}}>   End Date: { item.date }</Text>
         </View>
     )
 }
